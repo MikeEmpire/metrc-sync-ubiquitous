@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+const app = express();
+
+const PORT = 444;
+
+/** *********************************** */
+//* ****// Express & Webpack Middleware
+/** *********************************** */
+
+app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
+app.use(bodyParser.json()); // parse application/json
+app.use(cors()); // Enable CORS from client-side
+app.use(compression());
+app.use(express.static(path.join(__dirname, "/public")));
+
+export default app
