@@ -4,12 +4,7 @@ require("dotenv").config();
 //* ****// Dependencies
 /** *********************************** */
 
-// common utils
-const logger = require('morgan');
-
 const app = require('./app');
-
-app.use(logger('dev'));
 
 /** *********************************** */
 //* ****// Initialize Routes

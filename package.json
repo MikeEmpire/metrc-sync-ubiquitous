@@ -37,7 +37,6 @@
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.11.1",
     "husky": "^0.14.3",
-    "morgan": "^1.10.0",
     "nodemon": "^1.19.4",
     "serverless-offline": "^4.2.1"
   },
