@@ -19,14 +19,14 @@ exports.createItem = async (req, res, next) => {
     const METRCResponse = await axios
       .post(url, item, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (METRCResponse === "") {
       return res.status(200).send({
-        message: "Created Item"
+        message: "Created Item",
       });
     }
 
@@ -50,18 +50,49 @@ exports.getItems = async (req, res, next) => {
     const METRCResponse = await axios
       .get(url, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (Array.isArray(METRCResponse)) {
       return res.status(200).send({
         message: "Retrieved Items",
-        items: METRCResponse
+        items: METRCResponse,
       });
     }
     return null;
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.updateItem = async (req, res, next) => {
+  try {
+    const { authorization } = req.headers;
+
+    const authContent = authorization.split(" ");
+
+    const [licenseNumber, apiKey] = authContent;
+
+    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
+
+    const item = req.body; // expects an array of objects
+
+    const url = `${METRC_URL}/items/v1/update`;
+    const METRCResponse = await axios
+      .post(url, item, {
+        params,
+        headers,
+      })
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
+
+    if (METRCResponse === "") {
+      return res.status(200).send({
+        message: "Updated Item",
+      });
+    }
   } catch (err) {
     return next(err);
   }
@@ -81,15 +112,15 @@ exports.getItemCategories = async (req, res, next) => {
     const METRCResponse = await axios
       .get(url, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (Array.isArray(METRCResponse)) {
       return res.status(200).send({
         message: "Retrieved Items",
-        itemCategories: METRCResponse
+        itemCategories: METRCResponse,
       });
     }
     return null;

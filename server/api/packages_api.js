@@ -23,28 +23,28 @@ exports.getActivePackages = async (req, res, next) => {
       updatedParams = {
         ...params,
         lastModifiedStart,
-        lastModifiedEnd
+        lastModifiedEnd,
       };
     } else {
       updatedParams = {
-        ...params
+        ...params,
       };
     }
     const url = `${METRC_URL}/packages/v1/active`;
     const activePackages = await axios
       .get(url, {
         params: updatedParams,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (!Array.isArray(activePackages)) {
       return null;
     }
     return res.status(200).send({
       message: "Retrieved Active Packages",
-      activePackages
+      activePackages,
     });
   } catch (err) {
     return next(err);
@@ -69,14 +69,14 @@ exports.createPackages = async (req, res, next) => {
     const METRCGroupAdded = await axios
       .post(packageUrl, packageToCreate, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (METRCGroupAdded === "") {
       return res.status(200).send({
-        message: "Created Package"
+        message: "Created Package",
       });
     }
     return null;
@@ -103,17 +103,183 @@ exports.createPlantGroupPackage = async (req, res, next) => {
     const METRCGroupAdded = await axios
       .post(createPlantGroupUrl, plantGroup, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (METRCGroupAdded === "") {
       return res.status(200).send({
-        message: "Created Plant Batch"
+        message: "Created Plant Batch",
       });
     }
     return null;
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.changeItem = async (req, res, next) => {
+  try {
+    // Add plant group to METRC so data can be accurately logged
+    const { authorization } = req.headers;
+
+    const authContent = authorization.split(" ");
+
+    const [licenseNumber, apiKey] = authContent;
+
+    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
+
+    const plantGroup = req.body;
+
+    const url = `${METRC_URL}/packages/v1/change/item`;
+
+    const METRCGroupAdded = await axios
+      .post(url, plantGroup, {
+        params,
+        headers,
+      })
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
+
+    if (METRCGroupAdded === "") {
+      return res.status(200).send({
+        message: "Created Plant Batch",
+      });
+    }
+    return null;
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.adjustPackage = async (req, res, next) => {
+  try {
+    // Add plant group to METRC so data can be accurately logged
+    const { authorization } = req.headers;
+
+    const authContent = authorization.split(" ");
+
+    const [licenseNumber, apiKey] = authContent;
+
+    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
+
+    const adjustment = req.body;
+
+    const url = `${METRC_URL}/packages/v1/adjust`;
+
+    const adjustItemRes = await axios
+      .post(url, adjustment, {
+        params,
+        headers,
+      })
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
+
+    if (adjustItemRes === "") {
+      return res.status(200).send({
+        message: "Adjusted Item",
+      });
+    }
+    return null;
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.finishPackage = async (req, res, next) => {
+  try {
+    // Add plant group to METRC so data can be accurately logged
+    const { authorization } = req.headers;
+
+    const authContent = authorization.split(" ");
+
+    const [licenseNumber, apiKey] = authContent;
+
+    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
+
+    const packageToFinish = req.body;
+
+    const url = `${METRC_URL}/packages/v1/finish`;
+
+    const adjustItemRes = await axios
+      .post(url, packageToFinish, {
+        params,
+        headers,
+      })
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
+
+    if (adjustItemRes === "") {
+      return res.status(200).send({
+        message: "Adjusted Item",
+      });
+    }
+    return null;
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.unfinishPackage = async (req, res, next) => {
+  try {
+    // Add plant group to METRC so data can be accurately logged
+    const { authorization } = req.headers;
+
+    const authContent = authorization.split(" ");
+
+    const [licenseNumber, apiKey] = authContent;
+
+    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
+
+    const packageToUnfinish = req.body;
+
+    const url = `${METRC_URL}/packages/v1/unfinish`;
+
+    const adjustItemRes = await axios
+      .post(url, packageToUnfinish, {
+        params,
+        headers,
+      })
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
+
+    if (adjustItemRes === "") {
+      return res.status(200).send({
+        message: "Unfinished Package",
+      });
+    }
+    return null;
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.getAdjustmentReasons = async (req, res, next) => {
+  try {
+    const { authorization } = req.headers;
+
+    const authContent = authorization.split(" ");
+
+    const [licenseNumber, apiKey] = authContent;
+
+    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
+    const url = `${METRC_URL}/packages/v1/adjust/reasons`;
+    const adjustmentReasons = await axios
+      .get(url, {
+        params,
+        headers,
+      })
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
+
+    if (!Array.isArray(adjustmentReasons)) {
+      return null;
+    }
+    return res.status(200).send({
+      message: "Retrieved Active Packages",
+      adjustmentReasons,
+    });
   } catch (err) {
     return next(err);
   }

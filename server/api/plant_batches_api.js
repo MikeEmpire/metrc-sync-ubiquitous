@@ -3,8 +3,7 @@ const axios = require("axios");
 const { returnMETRCErr } = require("../../helpers/index");
 const { encodeAuthKey } = require("../../helpers/encodeAuthKey");
 const { METRC_URL } = require("../../constants");
-const getParams = require('../../helpers/getParams')
-
+const getParams = require("../../helpers/getParams");
 let updatedParams;
 
 exports.getActiveBatches = async (req, res, next) => {
@@ -22,28 +21,28 @@ exports.getActiveBatches = async (req, res, next) => {
       updatedParams = {
         ...params,
         lastModifiedStart,
-        lastModifiedEnd
+        lastModifiedEnd,
       };
     } else {
       updatedParams = {
-        ...params
+        ...params,
       };
     }
     const url = `${METRC_URL}/plantbatches/v1/active`;
     const activeBatches = await axios
       .get(url, {
         params: updatedParams,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (!Array.isArray(activeBatches)) {
       return null;
     }
     return res.status(200).send({
       message: "Retrieved Active Plant Batches",
-      activeBatches
+      activeBatches,
     });
   } catch (err) {
     return next(err);
@@ -52,10 +51,9 @@ exports.getActiveBatches = async (req, res, next) => {
 
 exports.getBatchByLabel = async (req, res, next) => {
   try {
-
     const { authorization } = req.headers;
 
-    const { id } = req.params
+    const { id } = req.params;
 
     const authContent = authorization.split(" ");
 
@@ -66,17 +64,17 @@ exports.getBatchByLabel = async (req, res, next) => {
     const queriedBatch = await axios
       .get(url, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
-    if (typeof queriedBatch !== 'object') {
+    if (typeof queriedBatch !== "object") {
       return null;
     }
     return res.status(200).send({
       message: "Retrieved Queried Batch!",
-      queriedBatch
+      queriedBatch,
     });
   } catch (err) {
     return next(err);
@@ -98,28 +96,28 @@ exports.getInactiveBatches = async (req, res, next) => {
       updatedParams = {
         ...params,
         lastModifiedStart,
-        lastModifiedEnd
+        lastModifiedEnd,
       };
     } else {
       updatedParams = {
-        ...params
+        ...params,
       };
     }
     const url = `${METRC_URL}/plantbatches/v1/inactive`;
     const inactiveBatches = await axios
       .get(url, {
         params: updatedParams,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (!Array.isArray(inactiveBatches)) {
       return null;
     }
     return res.status(200).send({
       message: "Retrieved inactive Plant Batches",
-      inactiveBatches
+      inactiveBatches,
     });
   } catch (err) {
     return next(err);
@@ -137,14 +135,16 @@ exports.addPlantGroup = async (req, res, next) => {
     const METRCGroupAdded = await axios
       .post(addPlantGroupUrl, plantGroup, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (METRCGroupAdded === "") {
+      const minifiedBody = JSON.stringify(plantGroup);
       return res.status(200).send({
-        message: "Created Plant Batch"
+        message: "Created Plant Batch",
+        body: minifiedBody,
       });
     }
     return null;
@@ -171,18 +171,18 @@ exports.movePlantBatch = async (req, res, next) => {
     const METRCGroupMoved = await axios
       .post(moveBatchUrl, plantGroup, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (METRCGroupMoved === "") {
       return res.status(200).send({
         message: "METRC batch has been destroyed",
-        METRCGroupMoved
+        METRCGroupMoved,
       });
     }
-    return null
+    return null;
   } catch (err) {
     return next(err);
   }
@@ -205,18 +205,18 @@ exports.changeGrowthPhase = async (req, res, next) => {
     const METRCGroupMoved = await axios
       .post(moveBatchUrl, plantGroup, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (METRCGroupMoved === "") {
       return res.status(200).send({
         message: "METRC batch has moved phases",
-        METRCGroupMoved
+        METRCGroupMoved,
       });
     }
-    return null
+    return null;
   } catch (err) {
     return next(err);
   }
@@ -239,20 +239,19 @@ exports.deletePlantBatch = async (req, res, next) => {
     const METRCBatchDestroyed = await axios
       .post(destroyBatchUrl, batch, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (METRCBatchDestroyed === "") {
       return res.status(200).send({
         message: "METRC batch has been destroyed",
-        METRCBatchDestroyed
+        METRCBatchDestroyed,
       });
     }
 
-    return null
-    
+    return null;
   } catch (err) {
     return next(err);
   }
@@ -275,17 +274,17 @@ exports.createPackage = async (req, res, next) => {
     const METRCPackage = await axios
       .post(createPackageUrl, immaturePlantPackage, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (METRCPackage !== "") {
       return null;
     }
     return res.status(200).send({
       message: "Successfully created the packages!",
-      METRCPackage
+      METRCPackage,
     });
   } catch (err) {
     return next(err);

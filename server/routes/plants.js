@@ -475,7 +475,6 @@ router.post("/clones", plants_api.createClones);
  */
 router.post("/changegrowthphase", plants_api.changeGrowthPhase);
 
-
 /**
  * @swagger
  * /api/plants/harvest:
@@ -655,5 +654,11 @@ router.post("/manicure", plants_api.recordManicure);
  *
  */
 router.delete("/destroy", plants_api.destroyPlants);
+
+router.post("/move", plants_api.movePlants);
+
+router.get("/wastemethods", plants_api.getWasteMethods);
+
+router.get('/wastereasons', plants_api.getWasteReasons)
 
 module.exports = router;

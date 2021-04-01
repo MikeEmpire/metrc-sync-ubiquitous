@@ -58,10 +58,10 @@ exports.getRooms = async (req, res, next) => {
   try {
     const { headers, params } = await getAuthorization(req);
 
-    const getMETRCRooms = `${METRC_URL}/locations/v1/active`;
+    const url = `${METRC_URL}/locations/v1/active`;
 
     const METRCRooms = await axios
-      .get(getMETRCRooms, {
+      .get(url, {
         params,
         headers
       })

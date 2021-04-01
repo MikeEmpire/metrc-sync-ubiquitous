@@ -68,7 +68,7 @@ const item_api = require("../api/item_api");
  *                          description: Success Message
  *       500:
  *         description: Incorrect API Key
- *       400: 
+ *       400:
  *         description: No data was submitted
  *         content:
  *          application/json:
@@ -253,5 +253,7 @@ router.get("/", item_api.getItems);
  *
  */
 router.get("/categories", item_api.getItemCategories);
+
+router.put("/", item_api.updateItem);
 
 module.exports = router;

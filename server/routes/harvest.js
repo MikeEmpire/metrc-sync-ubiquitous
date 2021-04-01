@@ -4,7 +4,7 @@ const router = express.Router();
 
 const harvest_api = require("../api/harvest_api");
 
-router.get('/:id', harvest_api.getHarvestById);
+router.get("/:id", harvest_api.getHarvestById);
 
 /**
  * @swagger
@@ -178,7 +178,7 @@ router.get("/", harvest_api.getActiveHarvests);
  *         description: Incorrect API Key Or METRC User Key
  *
  */
-router.get('/inactive', harvest_api.getInactiveHarvests)
+router.get("/inactive", harvest_api.getInactiveHarvests);
 
 /**
  * @swagger
@@ -265,7 +265,7 @@ router.get('/inactive', harvest_api.getInactiveHarvests)
  *         description: Incorrect API Key Or METRC User Key
  *
  */
-router.get('/onhold', harvest_api.getOnHoldHarvests);
+router.get("/onhold", harvest_api.getOnHoldHarvests);
 
 /**
  * @swagger
@@ -417,6 +417,12 @@ router.post("/package", harvest_api.createPackage);
  *         description: Incorrect API Key Or METRC User Key
  *
  */
-router.post('/waste', harvest_api.recordWaste);
+router.post("/waste", harvest_api.recordWaste);
+
+router.get("/waste/types", harvest_api.getWasteTypes);
+
+router.post('/finish', harvest_api.finishHarvest);
+
+router.post('/unfinish', harvest_api.unfinishHarvest)
 
 module.exports = router;

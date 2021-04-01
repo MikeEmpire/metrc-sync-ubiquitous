@@ -21,28 +21,28 @@ exports.getVegetativePlants = async (req, res, next) => {
       updatedParams = {
         ...params,
         lastModifiedStart,
-        lastModifiedEnd
+        lastModifiedEnd,
       };
     } else {
       updatedParams = {
-        ...params
+        ...params,
       };
     }
     const url = `${METRC_URL}/plants/v1/vegetative`;
     const vegetativePlants = await axios
       .get(url, {
         params: updatedParams,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (!Array.isArray(vegetativePlants)) {
       return null;
     }
     return res.status(200).send({
       message: "Retrieved Vegetative Plants",
-      vegetativePlants
+      vegetativePlants,
     });
   } catch (err) {
     return next(err);
@@ -64,28 +64,28 @@ exports.getFloweringPlants = async (req, res, next) => {
       updatedParams = {
         ...params,
         lastModifiedStart,
-        lastModifiedEnd
+        lastModifiedEnd,
       };
     } else {
       updatedParams = {
-        ...params
+        ...params,
       };
     }
     const url = `${METRC_URL}/plants/v1/flowering`;
     const floweringPlants = await axios
       .get(url, {
         params: updatedParams,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (!Array.isArray(floweringPlants)) {
       return null;
     }
     return res.status(200).send({
       message: "Retrieved Flowering Plants",
-      floweringPlants
+      floweringPlants,
     });
   } catch (err) {
     return next(err);
@@ -107,27 +107,27 @@ exports.getInactivePlants = async (req, res, next) => {
       updatedParams = {
         ...params,
         lastModifiedStart,
-        lastModifiedEnd
+        lastModifiedEnd,
       };
     } else {
       updatedParams = {
-        ...params
+        ...params,
       };
     }
     const url = `${METRC_URL}/plants/v1/inactive`;
     const inactivePlants = await axios
       .get(url, {
         params: updatedParams,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
     if (!Array.isArray(inactivePlants)) {
       return null;
     }
     return res.status(200).send({
       message: "Retrieved Flowering Plants",
-      inactivePlants
+      inactivePlants,
     });
   } catch (err) {
     return next(err);
@@ -148,15 +148,15 @@ exports.getOnHoldPlants = async (req, res, next) => {
     const onHoldPlants = await axios
       .get(url, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (Array.isArray(onHoldPlants)) {
       return res.status(200).send({
         message: "Retrieved onhold plants",
-        onHoldPlants
+        onHoldPlants,
       });
     }
     return null;
@@ -180,15 +180,15 @@ exports.createClones = async (req, res, next) => {
     const METRCResponse = await axios
       .post(url, planting, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (METRCResponse === "") {
       return res.status(200).send({
         message: "Created planting",
-        planting
+        planting,
       });
     }
 
@@ -214,15 +214,15 @@ exports.destroyPlants = async (req, res, next) => {
     const METRCResponse = await axios
       .post(url, plants, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (METRCResponse === "") {
       return res.status(200).send({
         message: "Deleted plants",
-        plants
+        plants,
       });
     }
     return null;
@@ -244,15 +244,15 @@ exports.changeGrowthPhase = async (req, res, next) => {
     const METRCResponse = await axios
       .post(url, plants, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (METRCResponse === "") {
       return res.status(200).send({
         message: "Changed growth phases of plants",
-        plants
+        plants,
       });
     }
     return null;
@@ -277,14 +277,14 @@ exports.recordHarvest = async (req, res, next) => {
     const recordHarvestResponse = await axios
       .post(url, harvestInfo, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (recordHarvestResponse === "") {
       return res.status(200).send({
-        message: "Successfully sent data to METRC!"
+        message: "Successfully sent data to METRC!",
       });
     }
     return null;
@@ -309,17 +309,136 @@ exports.recordManicure = async (req, res, next) => {
     const recordManicureResponse = await axios
       .post(url, manicureInfo, {
         params,
-        headers
+        headers,
       })
-      .then(response => response.data)
-      .catch(err => returnMETRCErr(err, res));
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
 
     if (recordManicureResponse === "") {
       return res.status(200).send({
-        message: "Successfully sent data to METRC!"
+        message: "Successfully sent data to METRC!",
       });
     }
     return null;
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.movePlants = async (req, res, next) => {
+  try {
+    const { authorization } = req.headers;
+
+    const authContent = authorization.split(" ");
+
+    const [licenseNumber, apiKey] = authContent;
+
+    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
+
+    const planting = req.body; // should be an array of objects
+    const url = `${METRC_URL}/plants/v1/moveplants`;
+    const METRCResponse = await axios
+      .post(url, planting, {
+        params,
+        headers,
+      })
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
+
+    if (METRCResponse === "") {
+      return res.status(200).send({
+        message: "Moved Plants!",
+        planting,
+      });
+    }
+
+    return null;
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.getWasteMethods = async (req, res, next) => {
+  try {
+    const { lastModifiedStart, lastModifiedEnd } = req.query;
+
+    const { authorization } = req.headers;
+
+    const authContent = authorization.split(" ");
+
+    const [licenseNumber, apiKey] = authContent;
+
+    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
+    if (lastModifiedEnd !== "" && lastModifiedStart !== "") {
+      updatedParams = {
+        ...params,
+        lastModifiedStart,
+        lastModifiedEnd,
+      };
+    } else {
+      updatedParams = {
+        ...params,
+      };
+    }
+    const url = `${METRC_URL}/plants/v1/waste/methods`;
+    const methods = await axios
+      .get(url, {
+        params: updatedParams,
+        headers,
+      })
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
+
+    if (!Array.isArray(methods)) {
+      return null;
+    }
+    return res.status(200).send({
+      message: "Retrieved Waste Methods",
+      methods,
+    });
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.getWasteReasons = async (req, res, next) => {
+  try {
+    const { lastModifiedStart, lastModifiedEnd } = req.query;
+
+    const { authorization } = req.headers;
+
+    const authContent = authorization.split(" ");
+
+    const [licenseNumber, apiKey] = authContent;
+
+    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
+    if (lastModifiedEnd !== "" && lastModifiedStart !== "") {
+      updatedParams = {
+        ...params,
+        lastModifiedStart,
+        lastModifiedEnd,
+      };
+    } else {
+      updatedParams = {
+        ...params,
+      };
+    }
+    const url = `${METRC_URL}/plants/v1/waste/reasons`;
+    const reasons = await axios
+      .get(url, {
+        params: updatedParams,
+        headers,
+      })
+      .then((response) => response.data)
+      .catch((err) => returnMETRCErr(err, res));
+
+    if (!Array.isArray(reasons)) {
+      return null;
+    }
+    return res.status(200).send({
+      message: "Retrieved Waste Reasons",
+      reasons,
+    });
   } catch (err) {
     return next(err);
   }

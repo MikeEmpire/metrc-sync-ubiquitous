@@ -282,11 +282,21 @@ router.post("/", packages_api.createPackages);
  *                      message:
  *                          type: string
  *                          description: There are some errors in the request body. Values must be adjusted
- * 
+ *
  *       401:
  *         description: Incorrect API Key Or METRC User Key
  *
  */
 router.post("/planting", packages_api.createPlantGroupPackage);
+
+router.put("/item", packages_api.changeItem);
+
+router.put("/adjust", packages_api.adjustPackage);
+
+router.post("/finish", packages_api.finishPackage);
+
+router.post("/unfinish", packages_api.unfinishPackage);
+
+router.get('/adjust/reasons', packages_api.getAdjustmentReasons)
 
 module.exports = router;
