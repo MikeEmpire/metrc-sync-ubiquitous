@@ -11,6 +11,7 @@ const plantBatches = require("./routes/plant_batches");
 const harvests = require("./routes/harvest");
 const sales = require("./routes/sales");
 const items = require("./routes/item");
+const transfers = require("./routes/transfers");
 
 module.exports = (app) => {
   app.use("/api/rooms", rooms);
@@ -22,6 +23,7 @@ module.exports = (app) => {
   app.use("/api/plantbatches", plantBatches);
   app.use("/api/sales", sales);
   app.use("/api/packages", packages);
+  app.use("/api/transfers", transfers);
 
   // serve the grolens favicon
   app.use(favicon(path.join(__dirname, "images", "favicon.ico")));
