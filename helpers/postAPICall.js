@@ -1,12 +1,18 @@
-const axios = require('axios');
+const axios = require("axios");
 
 const { returnMETRCErr } = require(".");
 const { encodeAuthKey } = require("./encodeAuthKey");
 
-const postAPICall = async (req, res, next, url, message) => {
+const postAPICall = async (req, res, next, url, message, method) => {
   try {
     // Add plant group to METRC so data can be accurately logged
     const { authorization } = req.headers;
+
+    let methodToUse = method;
+
+    if (!methodToUse) {
+      method = "post";
+    }
 
     const authContent = authorization.split(" ");
     let responseMessage = "Success!";

@@ -138,6 +138,10 @@ const packages_api = require("../api/packages_api");
  */
 router.get("/", packages_api.getActivePackages);
 
+router.get("/id/:id", packages_api.getPackageById);
+
+router.get("/label/:label", packages_api.getPackageByLabel);
+
 /**
  * @swagger
  * /api/packages:
@@ -297,6 +301,6 @@ router.post("/finish", packages_api.finishPackage);
 
 router.post("/unfinish", packages_api.unfinishPackage);
 
-router.get('/adjust/reasons', packages_api.getAdjustmentReasons)
+router.get("/adjust/reasons", packages_api.getAdjustmentReasons);
 
 module.exports = router;

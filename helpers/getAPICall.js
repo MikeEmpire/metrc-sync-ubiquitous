@@ -1,5 +1,5 @@
-const axios = require('axios');
-const { returnMETRCErr } = require('.');
+const axios = require("axios");
+const { returnMETRCErr } = require(".");
 const { encodeAuthKey } = require("./encodeAuthKey");
 
 const getAPICall = async (req, res, next, url) => {
@@ -31,7 +31,12 @@ const getAPICall = async (req, res, next, url) => {
       })
       .then((response) => response.data)
       .catch((err) => returnMETRCErr(err, res));
-
+    if (typeof data === "object") {
+      return res.status(200).send({
+        message: "Retrieved Data",
+        data,
+      });
+    }
     if (!Array.isArray(data)) {
       return null;
     }

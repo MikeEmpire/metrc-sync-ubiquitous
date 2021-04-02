@@ -28,6 +28,18 @@ exports.getTemplates = async (req, res, next) => {
   return getAPICall(req, res, next, url);
 };
 
+exports.getTransportDetail = async (req, res, next) => {
+  const { id } = req.params;
+  const url = `${METRC_URL}/transfers/v1/templates/${id}/transporters/details`;
+  return getAPICall(req, res, next, url);
+};
+
+exports.getPackageByIdTransfer = async (req, res, next) => {
+  const { id } = req.params;
+  const url = `${METRC_URL}/transfers/v1/templates/delivery/${id}/packages`;
+  return getAPICall(req, res, next, url);
+};
+
 exports.createTransferTemplate = async (req, res, next) => {
   const url = `${METRC_URL}/transfers/v1/templates`;
   return postAPICall(req, res, next, url);
@@ -37,4 +49,11 @@ exports.createExternalTransfer = async (req, res, next) => {
   const url = `${METRC_URL}/transfers/v1/external/incoming`;
   const message = "Successfully created the External Transfer";
   return postAPICall(req, res, next, url, message);
+};
+
+exports.updateTransferTemplate = async (req, res, next) => {
+  const url = `${METRC_URL}/transfers/v1/templates`;
+  const message = "Successfully updated the external transfer";
+  const method = "put";
+  return postAPICall(req, res, next, url, message, method);
 };

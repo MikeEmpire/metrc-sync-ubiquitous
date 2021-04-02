@@ -5,6 +5,7 @@ const path = require("path");
 const rooms = require("./routes/rooms");
 const strains = require("./routes/strains");
 const packages = require("./routes/packages");
+const labTests = require("./routes/labtests");
 const validate = require("./routes/validate");
 const plants = require("./routes/plants");
 const plantBatches = require("./routes/plant_batches");
@@ -12,12 +13,15 @@ const harvests = require("./routes/harvest");
 const sales = require("./routes/sales");
 const items = require("./routes/item");
 const transfers = require("./routes/transfers");
+const facilities = require("./routes/facilities");
 
 module.exports = (app) => {
+  app.use("/api/facilities", facilities);
   app.use("/api/rooms", rooms);
   app.use("/api/validate", validate);
   app.use("/api/plants", plants);
   app.use("/api/harvest", harvests);
+  app.use("/api/labtests", labTests);
   app.use("/api/items", items);
   app.use("/api/strains", strains);
   app.use("/api/plantbatches", plantBatches);

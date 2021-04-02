@@ -8,14 +8,20 @@ router.get("/incoming", transfers_api.getIncomingTransfers);
 
 router.get("/outgoing", transfers_api.getOutgoingTransfers);
 
-router.get('/templates', transfers_api.getTemplates);
+router.get("/templates", transfers_api.getTemplates);
 
-router.get('/templates/:id', transfers_api.getTransfersByTemplates)
+router.get("/templates/details/:id", transfers_api.getTransfersByTemplates);
 
-router.post('/templates', transfers_api.createTransferTemplate)
+router.get("/details/:id", transfers_api.getTransportDetail);
+
+router.post("/templates", transfers_api.createTransferTemplate);
 
 router.post("/external", transfers_api.createExternalTransfer);
 
+router.put("/templates", transfers_api.updateTransferTemplate);
+
 router.get("/types", transfers_api.getTransferTypes);
+
+router.get("/package/:id", transfers_api.getPackageByIdTransfer);
 
 module.exports = router;

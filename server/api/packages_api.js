@@ -5,6 +5,7 @@ const { returnMETRCErr } = require("../../helpers/index");
 const { encodeAuthKey } = require("../../helpers/encodeAuthKey");
 
 const { METRC_URL } = require("../../constants");
+const getAPICall = require("../../helpers/getAPICall");
 
 let updatedParams;
 
@@ -49,6 +50,18 @@ exports.getActivePackages = async (req, res, next) => {
   } catch (err) {
     return next(err);
   }
+};
+
+exports.getPackageById = async (req, res, next) => {
+  const { id } = req.params;
+  const url = `${METRC_URL}/packages/v1/${id}`;
+  return getAPICall(req, res, next, url);
+};
+
+exports.getPackageByLabel = async (req, res, next) => {
+  const { label } = req.params;
+  const url = `${METRC_URL}/packages/v1/${label}`;
+  return getAPICall(req, res, next, url);
 };
 
 exports.createPackages = async (req, res, next) => {

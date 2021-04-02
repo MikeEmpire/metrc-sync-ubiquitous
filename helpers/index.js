@@ -3,16 +3,16 @@ const returnMETRCErr = async (err, res) => {
   console.log(err.response);
   // console.log(data, status)
 
+  if (status === 401) {
+    return res.status(status).send({
+      message:
+        "Incorrect License Number or METRC Key, or that facility might not have authorization for the data to go through, please check on your API information!",
+    });
+  }
   if (data === "") {
     return res
       .status(status)
       .send({ message: "Unable to complete your request" });
-  }
-  if (status === 401) {
-    return res.status(status).send({
-      message:
-        "Incorrect License Number or METRC Key, please change your API information!",
-    });
   }
   if (data.Message && data.Message !== "") {
     return res.status(status).send({
