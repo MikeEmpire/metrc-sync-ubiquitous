@@ -33,7 +33,7 @@ exports.undoRoom = async (req, res, next) => {
     const { _id, metrcId } = grolens_log_entry;
     
     // delete room from metrc
-    await axios.delete(`${METRC_URL}/rooms/v1/${metrcId}`, {
+    await axios.delete(`${METRC_URL(req)}/rooms/v1/${metrcId}`, {
       params,
       headers
     });
@@ -58,7 +58,7 @@ exports.getRooms = async (req, res, next) => {
   try {
     const { headers, params } = await getAuthorization(req);
 
-    const url = `${METRC_URL}/locations/v1/active`;
+    const url = `${METRC_URL(req)}/locations/v1/active`;
 
     const METRCRooms = await axios
       .get(url, {
@@ -81,7 +81,7 @@ exports.getRoomTypes = async (req, res, next) => {
   try {
     const { headers, params } = await getAuthorization(req);
 
-    const url = `${METRC_URL}/locations/v1/types`;
+    const url = `${METRC_URL(req)}/locations/v1/types`;
 
     const metrcRoomTypes = await axios
       .get(url, {
@@ -106,7 +106,7 @@ exports.addRooms = async (req, res, next) => {
 
     const rooms = req.body;
 
-    const url = `${METRC_URL}/locations/v1/create`;
+    const url = `${METRC_URL(req)}/locations/v1/create`;
 
     const METRCRooms = await axios
       .post(url, rooms, {
@@ -137,7 +137,7 @@ exports.updateRoom = async (req, res, next) => {
 
     const updatedRoom = req.body;
 
-    const url = `${METRC_URL}/locations/v1/update`;
+    const url = `${METRC_URL(req)}/locations/v1/update`;
 
     const updatedMessage = await axios
       .post(url, updatedRoom, {

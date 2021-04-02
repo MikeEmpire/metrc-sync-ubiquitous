@@ -18,7 +18,7 @@ exports.getHarvestById = async (req, res, next) => {
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const url = `${METRC_URL}/harvests/v1/${id}`;
+    const url = `${METRC_URL(req)}/harvests/v1/${id}`;
     const queriedHarvest = await axios
       .get(url, {
         params,
@@ -63,7 +63,7 @@ exports.getActiveHarvests = async (req, res, next) => {
       };
     }
 
-    const url = `${METRC_URL}/harvests/v1/active`;
+    const url = `${METRC_URL(req)}/harvests/v1/active`;
     const activeHarvests = await axios
       .get(url, {
         params: updatedParams,
@@ -106,7 +106,7 @@ exports.getInactiveHarvests = async (req, res, next) => {
         ...params,
       };
     }
-    const url = `${METRC_URL}/harvests/v1/inactive`;
+    const url = `${METRC_URL(req)}/harvests/v1/inactive`;
     const inactiveHarvests = await axios
       .get(url, {
         params: updatedParams,
@@ -155,7 +155,7 @@ exports.getOnHoldHarvests = async (req, res, next) => {
         ...params,
       };
     }
-    const url = `${METRC_URL}/harvests/v1/onhold`;
+    const url = `${METRC_URL(req)}/harvests/v1/onhold`;
     const onHoldHarvests = await axios
       .get(url, {
         params: updatedParams,
@@ -192,7 +192,7 @@ exports.createPackage = async (req, res, next) => {
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const url = `${METRC_URL}/harvests/v1/create/packages`;
+    const url = `${METRC_URL(req)}/harvests/v1/create/packages`;
     const packageInfo = req.body; // should be an array of objects
 
     const METRCResponse = await axios
@@ -224,7 +224,7 @@ exports.getWasteTypes = async (req, res, next) => {
     const [licenseNumber, apiKey] = authContent;
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
-    const url = `${METRC_URL}/harvests/v1/waste/types`;
+    const url = `${METRC_URL(req)}/harvests/v1/waste/types`;
     const wasteTypes = await axios
       .get(url, {
         params,
@@ -261,7 +261,7 @@ exports.recordWaste = async (req, res, next) => {
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const url = `${METRC_URL}/harvests/v1/removewaste`;
+    const url = `${METRC_URL(req)}/harvests/v1/removewaste`;
     const recordWaste = req.body; // should be an array of objects
 
     const wasteResponse = await axios
@@ -294,7 +294,7 @@ exports.finishHarvest = async (req, res, next) => {
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const url = `${METRC_URL}/harvests/v1/finish`;
+    const url = `${METRC_URL(req)}/harvests/v1/finish`;
     const harvestToFinish = req.body; // should be an array of objects
 
     const METRCResponse = await axios
@@ -327,7 +327,7 @@ exports.unfinishHarvest = async (req, res, next) => {
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const url = `${METRC_URL}/harvests/v1/unfinish`;
+    const url = `${METRC_URL(req)}/harvests/v1/unfinish`;
     const harvestToUnfinish = req.body; // should be an array of objects
 
     const METRCResponse = await axios

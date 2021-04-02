@@ -28,7 +28,7 @@ exports.getVegetativePlants = async (req, res, next) => {
         ...params,
       };
     }
-    const url = `${METRC_URL}/plants/v1/vegetative`;
+    const url = `${METRC_URL(req)}/plants/v1/vegetative`;
     const vegetativePlants = await axios
       .get(url, {
         params: updatedParams,
@@ -71,7 +71,7 @@ exports.getFloweringPlants = async (req, res, next) => {
         ...params,
       };
     }
-    const url = `${METRC_URL}/plants/v1/flowering`;
+    const url = `${METRC_URL(req)}/plants/v1/flowering`;
     const floweringPlants = await axios
       .get(url, {
         params: updatedParams,
@@ -114,7 +114,7 @@ exports.getInactivePlants = async (req, res, next) => {
         ...params,
       };
     }
-    const url = `${METRC_URL}/plants/v1/inactive`;
+    const url = `${METRC_URL(req)}/plants/v1/inactive`;
     const inactivePlants = await axios
       .get(url, {
         params: updatedParams,
@@ -144,7 +144,7 @@ exports.getOnHoldPlants = async (req, res, next) => {
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const url = `${METRC_URL}/harvests/v1/onhold`;
+    const url = `${METRC_URL(req)}/harvests/v1/onhold`;
     const onHoldPlants = await axios
       .get(url, {
         params,
@@ -176,7 +176,7 @@ exports.createClones = async (req, res, next) => {
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
     const planting = req.body; // should be an array of objects
-    const url = `${METRC_URL}/plants/v1/create/plantings`;
+    const url = `${METRC_URL(req)}/plants/v1/create/plantings`;
     const METRCResponse = await axios
       .post(url, planting, {
         params,
@@ -208,7 +208,7 @@ exports.destroyPlants = async (req, res, next) => {
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const url = `${METRC_URL}/plants/v1/destroyplants`;
+    const url = `${METRC_URL(req)}/plants/v1/destroyplants`;
     const plants = req.body; // should be an array of objects
 
     const METRCResponse = await axios
@@ -238,7 +238,7 @@ exports.changeGrowthPhase = async (req, res, next) => {
     const [licenseNumber, apiKey] = authContent;
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const url = `${METRC_URL}/plants/v1/changegrowthphases`;
+    const url = `${METRC_URL(req)}/plants/v1/changegrowthphases`;
     const plants = req.body; // should be an array of objects
 
     const METRCResponse = await axios
@@ -271,7 +271,7 @@ exports.recordHarvest = async (req, res, next) => {
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const url = `${METRC_URL}/plants/v1/harvestplants`;
+    const url = `${METRC_URL(req)}/plants/v1/harvestplants`;
     const harvestInfo = req.body; // should be an array of objects
 
     const recordHarvestResponse = await axios
@@ -303,7 +303,7 @@ exports.recordManicure = async (req, res, next) => {
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const url = `${METRC_URL}/plants/v1/manicureplants`;
+    const url = `${METRC_URL(req)}/plants/v1/manicureplants`;
     const manicureInfo = req.body; // should be an array of objects
 
     const recordManicureResponse = await axios
@@ -336,7 +336,7 @@ exports.movePlants = async (req, res, next) => {
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
     const planting = req.body; // should be an array of objects
-    const url = `${METRC_URL}/plants/v1/moveplants`;
+    const url = `${METRC_URL(req)}/plants/v1/moveplants`;
     const METRCResponse = await axios
       .post(url, planting, {
         params,
@@ -380,7 +380,7 @@ exports.getWasteMethods = async (req, res, next) => {
         ...params,
       };
     }
-    const url = `${METRC_URL}/plants/v1/waste/methods`;
+    const url = `${METRC_URL(req)}/plants/v1/waste/methods`;
     const methods = await axios
       .get(url, {
         params: updatedParams,
@@ -423,7 +423,7 @@ exports.getWasteReasons = async (req, res, next) => {
         ...params,
       };
     }
-    const url = `${METRC_URL}/plants/v1/waste/reasons`;
+    const url = `${METRC_URL(req)}/plants/v1/waste/reasons`;
     const reasons = await axios
       .get(url, {
         params: updatedParams,

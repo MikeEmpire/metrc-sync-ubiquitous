@@ -12,7 +12,7 @@ exports.addStrains = async (req, res, next) => {
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
     const strains = req.body;
 
-    const url = `${METRC_URL}/strains/v1/create`;
+    const url = `${METRC_URL(req)}/strains/v1/create`;
 
     const METRCStrains = await axios
       .post(url, strains, {
@@ -53,7 +53,7 @@ exports.getMETRCStrains = async (req, res, next) => {
     const [licenseNumber, apiKey] = authContent;
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const getMETRCStrains = `${METRC_URL}/strains/v1/active`;
+    const getMETRCStrains = `${METRC_URL(req)}/strains/v1/active`;
 
     const METRCStrains = await axios
       .get(getMETRCStrains, {
@@ -85,7 +85,7 @@ exports.updateMETRCStrains = async (req, res, next) => {
 
     const { headers, params } = await getParams(req.headers);
 
-    const url = `${METRC_URL}/strains/v1/update`;
+    const url = `${METRC_URL(req)}/strains/v1/update`;
 
     const strains = await axios
       .post(url, updatedStrains, {

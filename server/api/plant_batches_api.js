@@ -28,7 +28,7 @@ exports.getActiveBatches = async (req, res, next) => {
         ...params,
       };
     }
-    const url = `${METRC_URL}/plantbatches/v1/active`;
+    const url = `${METRC_URL(req)}/plantbatches/v1/active`;
     const activeBatches = await axios
       .get(url, {
         params: updatedParams,
@@ -60,7 +60,7 @@ exports.getBatchByLabel = async (req, res, next) => {
     const [licenseNumber, apiKey] = authContent;
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
-    const url = `${METRC_URL}/plantbatches/v1/${id}`;
+    const url = `${METRC_URL(req)}/plantbatches/v1/${id}`;
     const queriedBatch = await axios
       .get(url, {
         params,
@@ -103,7 +103,7 @@ exports.getInactiveBatches = async (req, res, next) => {
         ...params,
       };
     }
-    const url = `${METRC_URL}/plantbatches/v1/inactive`;
+    const url = `${METRC_URL(req)}/plantbatches/v1/inactive`;
     const inactiveBatches = await axios
       .get(url, {
         params: updatedParams,
@@ -130,7 +130,7 @@ exports.addPlantGroup = async (req, res, next) => {
 
     const plantGroup = req.body;
 
-    const addPlantGroupUrl = `${METRC_URL}/plantbatches/v1/createplantings`;
+    const addPlantGroupUrl = `${METRC_URL(req)}/plantbatches/v1/createplantings`;
 
     const METRCGroupAdded = await axios
       .post(addPlantGroupUrl, plantGroup, {
@@ -166,7 +166,7 @@ exports.movePlantBatch = async (req, res, next) => {
 
     const plantGroup = req.body;
 
-    const moveBatchUrl = `${METRC_URL}/plantbatches/v1/moveplantbatches`;
+    const moveBatchUrl = `${METRC_URL(req)}/plantbatches/v1/moveplantbatches`;
 
     const METRCGroupMoved = await axios
       .post(moveBatchUrl, plantGroup, {
@@ -200,7 +200,7 @@ exports.changeGrowthPhase = async (req, res, next) => {
 
     const plantGroup = req.body;
 
-    const moveBatchUrl = `${METRC_URL}/plantbatches/v1/changegrowthphase`;
+    const moveBatchUrl = `${METRC_URL(req)}/plantbatches/v1/changegrowthphase`;
 
     const METRCGroupMoved = await axios
       .post(moveBatchUrl, plantGroup, {
@@ -234,7 +234,7 @@ exports.deletePlantBatch = async (req, res, next) => {
 
     const batch = req.body;
 
-    const destroyBatchUrl = `${METRC_URL}/plantbatches/v1/destroy`;
+    const destroyBatchUrl = `${METRC_URL(req)}/plantbatches/v1/destroy`;
 
     const METRCBatchDestroyed = await axios
       .post(destroyBatchUrl, batch, {
@@ -269,7 +269,7 @@ exports.createPackage = async (req, res, next) => {
 
     const immaturePlantPackage = req.body;
 
-    const createPackageUrl = `${METRC_URL}/plantbatches/v1/createpackages`;
+    const createPackageUrl = `${METRC_URL(req)}/plantbatches/v1/createpackages`;
 
     const METRCPackage = await axios
       .post(createPackageUrl, immaturePlantPackage, {

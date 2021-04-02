@@ -4,7 +4,7 @@ const { encodeAuthKey } = require("./encodeAuthKey");
 
 const getAPICall = async (req, res, next, url) => {
   try {
-    const { lastModifiedStart, lastModifiedEnd } = req.query;
+    const { lastModifiedStart, lastModifiedEnd, state } = req.query;
 
     const { authorization } = req.headers;
 
@@ -12,7 +12,7 @@ const getAPICall = async (req, res, next, url) => {
 
     const [licenseNumber, apiKey] = authContent;
 
-    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
+    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey, state);
     if (lastModifiedEnd !== "" && lastModifiedStart !== "") {
       updatedParams = {
         ...params,

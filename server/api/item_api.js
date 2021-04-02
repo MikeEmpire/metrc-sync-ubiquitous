@@ -15,7 +15,7 @@ exports.createItem = async (req, res, next) => {
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
     const item = req.body; // should be an array of objects
-    const url = `${METRC_URL}/items/v1/create`;
+    const url = `${METRC_URL(req)}/items/v1/create`;
     const METRCResponse = await axios
       .post(url, item, {
         params,
@@ -46,7 +46,7 @@ exports.getItems = async (req, res, next) => {
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const url = `${METRC_URL}/items/v1/active`;
+    const url = `${METRC_URL(req)}/items/v1/active`;
     const METRCResponse = await axios
       .get(url, {
         params,
@@ -79,7 +79,7 @@ exports.updateItem = async (req, res, next) => {
 
     const item = req.body; // expects an array of objects
 
-    const url = `${METRC_URL}/items/v1/update`;
+    const url = `${METRC_URL(req)}/items/v1/update`;
     const METRCResponse = await axios
       .post(url, item, {
         params,
@@ -108,7 +108,7 @@ exports.getItemCategories = async (req, res, next) => {
 
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const url = `${METRC_URL}/items/v1/categories`;
+    const url = `${METRC_URL(req)}/items/v1/categories`;
     const METRCResponse = await axios
       .get(url, {
         params,

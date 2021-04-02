@@ -13,7 +13,7 @@ exports.validateMETRCInfo = async (req, res, next) => {
     const [licenseNumber, apiKey] = authContent;
     const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
 
-    const getMETRCStrains = `${METRC_URL}/strains/v1/active`;
+    const getMETRCStrains = `${METRC_URL(req)}/strains/v1/active`;
 
     const METRCStrains = await axios
       .get(getMETRCStrains, {
