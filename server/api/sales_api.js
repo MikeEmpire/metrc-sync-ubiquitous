@@ -21,29 +21,9 @@ exports.saveReceipt = async (req, res, next) => {
   return postAPICall(req, res, next, url);
 };
 
-exports.deleteReceipt = async (req, res) => {
+exports.deleteReceipt = async (req, res, next) => {
   const { id } = req.params;
-  const { state } = req.query;
-
-  const { authorization } = req.headers;
-
-  const authContent = authorization.split(" ");
-  const [licenseNumber, apiKey] = authContent;
-
-  const { headers, params } = await encodeAuthKey(licenseNumber, apiKey, state);
   const url = `${METRC_URL(req)}/sales/v1/receipts/${id}`;
-
-  const deleteRes = await Axios.delete(url, {
-    headers,
-    params,
-  })
-    .then((response) => response.data)
-    .catch((err) => returnMETRCErr(err, res));
-
-  if (deleteRes === "") {
-    return res.status(200).send({
-      message: "Success",
-      deleteRes,
-    });
-  }
+  const method = "delete";
+  return postAPICall(req, res, next, url, null, method, true);
 };

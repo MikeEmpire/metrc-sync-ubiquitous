@@ -1,5 +1,6 @@
-const returnMETRCErr = async (err, res) => {
+const returnMETRCErr = async (err, res, req) => {
   const { data, status } = err.response;
+  res.locals.error = true
   console.log(err.response);
   // console.log(data, status)
 

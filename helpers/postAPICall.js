@@ -3,21 +3,21 @@ const axios = require("axios");
 const { returnMETRCErr } = require(".");
 const { encodeAuthKey } = require("./encodeAuthKey");
 
-const postAPICall = async (req, res, next, url, message, method) => {
+const postAPICall = async (req, res, next, url, message, method, noReqBody) => {
   try {
-    const { state } = req.query;
+    const { state } = await req.query;
     // Add plant group to METRC so data can be accurately logged
-    const { authorization } = req.headers;
+    const { authorization } = await req.headers;
 
-    let methodToUse = method;
+    let methodToUse = await method;
 
     if (!methodToUse) {
-      method = "post";
+      methodToUse = "post";
     }
 
-    const authContent = authorization.split(" ");
-    let responseMessage = "Success!";
-    const [licenseNumber, apiKey] = authContent;
+    const authContent = await authorization.split(" ");
+    let responseMessage = await "Success!";
+    const [licenseNumber, apiKey] = await authContent;
     if (message) {
       responseMessage = message;
     }
@@ -28,36 +28,47 @@ const postAPICall = async (req, res, next, url, message, method) => {
       state
     );
 
-    const data = req.body;
+    const data = await req.body;
+    let dataRes = {};
+    if (noReqBody) {
+      response = await axios[methodToUse](url, { params, headers })
+        .then((response) => response.data)
+        .catch((err) => returnMETRCErr(err, res, req));
+    } else {
+      response = await axios[methodToUse](url, data, {
+        params,
+        headers,
+      })
+        .then((response) => response.data)
+        .catch((err) => returnMETRCErr(err, res, req));
+    }
 
-    const postRes = await axios[methodToUse](url, data, {
-      params,
-      headers,
-    })
-      .then((response) => response.data)
-      .catch((err) => returnMETRCErr(err, res));
+    const { error } = res.locals
 
-    if (typeof postRes === "object") {
+    if (typeof dataRes === "object") {
+      if (error) {
+        return null
+      }
       const success = {
         responseMessage,
-        postRes,
+        dataRes,
       };
-      if (postRes.Warnings) {
-        const { Warnings } = postRes;
+      if (dataRes.Warnings) {
+        const { Warnings } = dataRes;
         if (Warnings.length > 0) {
-          success.warnings = postRes.warnings;
+          success.warnings = dataRes.warnings;
         }
       }
-      if (postRes.Ids) {
-        const { Ids } = postRes;
+      if (dataRes.Ids) {
+        const { Ids } = dataRes;
         if (Ids.length > 0) {
-          success.Ids = postRes.Ids;
+          success.Ids = dataRes.Ids;
         }
       }
       return res.status(200).send(success);
     }
 
-    if (postRes === "") {
+    if (dataRes === "") {
       return res.status(200).send({
         responseMessage,
       });

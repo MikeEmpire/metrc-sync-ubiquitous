@@ -12,7 +12,11 @@ const getAPICall = async (req, res, next, url) => {
 
     const [licenseNumber, apiKey] = authContent;
 
-    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey, state);
+    const { headers, params } = await encodeAuthKey(
+      licenseNumber,
+      apiKey,
+      state
+    );
     if (lastModifiedEnd !== "" && lastModifiedStart !== "") {
       updatedParams = {
         ...params,
@@ -30,7 +34,7 @@ const getAPICall = async (req, res, next, url) => {
         headers,
       })
       .then((response) => response.data)
-      .catch((err) => returnMETRCErr(err, res));
+      .catch((err) => returnMETRCErr(err, res, req));
     if (typeof data === "object") {
       return res.status(200).send({
         message: "Retrieved Data",
