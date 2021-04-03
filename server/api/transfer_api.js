@@ -30,13 +30,17 @@ exports.getTemplates = async (req, res, next) => {
 
 exports.getTransportDetail = async (req, res, next) => {
   const { id } = req.params;
-  const url = `${METRC_URL(req)}/transfers/v1/templates/${id}/transporters/details`;
+  const url = `${METRC_URL(
+    req
+  )}/transfers/v1/templates/${id}/transporters/details`;
   return getAPICall(req, res, next, url);
 };
 
 exports.getPackageByIdTransfer = async (req, res, next) => {
   const { id } = req.params;
-  const url = `${METRC_URL(req)}/transfers/v1/templates/delivery/${id}/packages`;
+  const url = `${METRC_URL(
+    req
+  )}/transfers/v1/templates/delivery/${id}/packages`;
   return getAPICall(req, res, next, url);
 };
 
@@ -54,6 +58,13 @@ exports.createExternalTransfer = async (req, res, next) => {
 exports.updateTransferTemplate = async (req, res, next) => {
   const url = `${METRC_URL(req)}/transfers/v1/templates`;
   const message = "Successfully updated the external transfer";
+  const method = "put";
+  return postAPICall(req, res, next, url, message, method);
+};
+
+exports.updateExternalIncomingTransfer = async (req, res, next) => {
+  const url = `${METRC_URL(req)}/transfers/v1/external/incoming`;
+  const message = "Updated transfer";
   const method = "put";
   return postAPICall(req, res, next, url, message, method);
 };

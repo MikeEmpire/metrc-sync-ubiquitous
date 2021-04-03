@@ -1,68 +1,26 @@
 {
-  "errorMessage": "Value cannot be null.\r\nParameter name: source",
+  "errorMessage": "Object reference not set to an instance of an object.",
   "body": [
     {
-      "ShipperLicenseNumber": "4a-X0003",
-      "ShipperName": "AK MISHMASH IMMERSION, LLC",
-      "ShipperMainPhoneNumber": "123-456-7890",
-      "ShipperAddress1": "123 Real Street",
-      "ShipperAddress2": "Somewhere else",
-      "ShipperAddressCity": "Somewhere",
-      "ShipperAddressState": "CO",
-      "ShipperAddressPostalCode": "90514",
-      "TransporterFacilityLicenseNumber": "404-X0001",
-      "DriverOccupationalLicenseNumber": "50",
-      "DriverName": "Mike Olie",
-      "DriverLicenseNumber": "X",
-      "PhoneNumberForQuestions": "X",
-      "VehicleMake": "X",
-      "VehicleModel": "X",
-      "VehicleLicensePlateNumber": "X",
-      "Destinations": [
+      "Label": "1A4FF0300000001000000464",
+      "ResultDate": "2021-03-15T00:00:00Z",
+      "DocumentFileName": "Sparkly Ventures Lab Results 20151215.pdf",
+      "DocumentFileBase64": "File encoded in Base64==",
+      "Results": [
         {
-          "RecipientLicenseNumber": "4a-X0003",
-          "TransferTypeName": "Affiliated Transfer",
-          "PlannedRoute": "I will drive down the road to the place.",
-          "EstimatedDepartureDateTime": "2018-03-06T09:15:00.000",
-          "EstimatedArrivalDateTime": "2018-03-06T12:24:00.000",
-          "GrossWeight": null,
-          "GrossUnitOfWeightId": null,
-          "Transporters": [
-            {
-              "TransporterFacilityLicenseNumber": "4a-X0003",
-              "DriverOccupationalLicenseNumber": "X",
-              "DriverName": "X",
-              "DriverLicenseNumber": "X",
-              "PhoneNumberForQuestions": "18005555555",
-              "VehicleMake": "X",
-              "VehicleModel": "X",
-              "VehicleLicensePlateNumber": "X",
-              "IsLayover": false,
-              "EstimatedDepartureDateTime": null,
-              "EstimatedArrivalDateTime": null,
-              "TransporterDetails": "headed out"
-            }
-          ],
-          "Packages": [
-            {
-              "ItemName": "4bfc877f Delta Buds",
-              "Quantity": 10.0,
-              "UnitOfMeasureName": "Grams",
-              "PackagedDate": "2021-02-04T00:00:00Z",
-              "GrossWeight": 10,
-              "GrossUnitOfWeightName": "Grams",
-              "WholesalePrice": 10
-            }
-          ]
+          "LabTestTypeName": "THC",
+          "Quantity": 100.2345,
+          "Passed": true,
+          "Notes": ""
         }
       ]
     }
   ],
   "headers": {
-    "Authorization": "Basic UHQzNnJRbnVLc0toUXlycERyUEoydm1ZUUZVWEgzUlJHQzJNNkMtVkt3b1Z5ODlZOk82LUdWQVVCbkp4emdRbzdwdEplUmdTSjI2T0hBQ2x4NGY1ZzZXQVZMaUdPS3NuaA=="
+    "Authorization": "Basic LUVLejhNdThGWksyT09yTU1Ia0MxMHJyczVhdWZ5cFU1cllkRkN4cG5kdFo3QTlTOjRBQmsweHBraEFUYU9oRmdCODFkc2VzOTRzUkNCQTJqcVY1eHJBd1g5ZnBVUFpPNg=="
   },
   "params": {
-    "licenseNumber": "4a-X0003"
+    "licenseNumber": "010-X0001"
   },
-  "url": "https://sandbox-api-ok.metrc.com/transfers/v1/external/incoming"
+  "url": "https://sandbox-api-or.metrc.com/labtests/v1/record?licenseNumber=010-X0001"
 }

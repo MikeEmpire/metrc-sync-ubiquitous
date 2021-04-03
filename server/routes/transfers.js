@@ -24,4 +24,6 @@ router.get("/types", transfers_api.getTransferTypes);
 
 router.get("/package/:id", transfers_api.getPackageByIdTransfer);
 
+router.put("/external/incoming", transfers_api.updateExternalIncomingTransfer);
+
 module.exports = router;
