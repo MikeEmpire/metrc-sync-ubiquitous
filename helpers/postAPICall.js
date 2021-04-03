@@ -30,11 +30,10 @@ const postAPICall = async (req, res, next, url, message, method) => {
 
     const data = req.body;
 
-    const postRes = await axios
-      .post(url, data, {
-        params,
-        headers,
-      })
+    const postRes = await axios[methodToUse](url, data, {
+      params,
+      headers,
+    })
       .then((response) => response.data)
       .catch((err) => returnMETRCErr(err, res));
 

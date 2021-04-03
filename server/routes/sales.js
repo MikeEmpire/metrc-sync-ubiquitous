@@ -4,6 +4,8 @@ const router = express.Router();
 
 const sales_api = require("../api/sales_api");
 
+router.get("/", sales_api.getActiveReceipts);
+
 /**
  * @swagger
  * /api/sales:
@@ -48,5 +50,9 @@ const sales_api = require("../api/sales_api");
  *
  */
 router.post("/", sales_api.saveReceipt);
+
+router.put("/", sales_api.editReceipt);
+
+router.delete("/:id", sales_api.deleteReceipt);
 
 module.exports = router;
