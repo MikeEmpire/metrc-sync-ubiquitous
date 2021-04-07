@@ -4,7 +4,14 @@ require("dotenv").config();
 //* ****// Dependencies
 /** *********************************** */
 
-const app = require('./app');
+const app = require("./app");
+const logger = require("morgan");
+
+/** *********************************** */
+//* ****// Middleware initialization
+/** *********************************** */
+
+app.use(logger("dev"));
 
 /** *********************************** */
 //* ****// Initialize Routes
@@ -20,5 +27,7 @@ const PORT = 444;
 
 app.listen(process.env.PORT || PORT, () => {
   // eslint-disable-next-line
-  console.log(`You are listening to Andre ${PORT}, ENV: ${process.env.NODE_ENV}`);
+  console.log(
+    `You are listening to Andre ${PORT}, ENV: ${process.env.NODE_ENV}`
+  );
 });
