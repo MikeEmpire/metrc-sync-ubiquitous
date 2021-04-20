@@ -27,8 +27,13 @@ const V_API_KEY =
     : process.env.VENDOR_API_KEY;
 
 const DEV_VENDOR_API_DICT = {
+  california: "3F16j6eJ5q4aqdGGDEjIfqoZymDzRzshGFJ7QCiP-ofOhaoC",
   oklahoma: "Pt36rQnuKsKhQyrpDrPJ2vmYQFUXH3RRGC2M6C-VKwoVy89Y",
   oregon: "-EKz8Mu8FZK2OOrMMHkC10rrs5aufypU5rYdFCxpndtZ7A9S",
+};
+
+const DEV_VENDOR_USER_DICT = {
+  california: "FusVbe4Yv6W1DGNuxKNhByXU6RO6jSUPcbRCoRDD98VNXc4D",
 };
 
 // const DEV_USER_API_DICT = {
@@ -42,7 +47,7 @@ const METRC_URL = (req) => {
     return URL;
   }
   const lowercaseState = state.toLowerCase();
-  const shortenedState = STATE_ABBREVIATIONS[lowercaseState]
+  const shortenedState = STATE_ABBREVIATIONS[lowercaseState];
   if (process.env.NODE_ENV === "development") {
     const sandboxUrl = `https://sandbox-api-${shortenedState}.metrc.com`;
     return sandboxUrl;
