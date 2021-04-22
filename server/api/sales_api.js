@@ -1,7 +1,4 @@
-const { default: Axios } = require("axios");
 const { METRC_URL } = require("../../constants");
-const { returnMETRCErr } = require("../../helpers");
-const { encodeAuthKey } = require("../../helpers/encodeAuthKey");
 const getAPICall = require("../../helpers/getAPICall");
 const postAPICall = require("../../helpers/postAPICall");
 

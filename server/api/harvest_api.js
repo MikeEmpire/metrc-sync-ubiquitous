@@ -3,82 +3,20 @@ const axios = require("axios");
 const { encodeAuthKey } = require("../../helpers/encodeAuthKey");
 const { returnMETRCErr } = require("../../helpers/index");
 const { METRC_URL } = require("../../constants");
+const getAPICall = require("../../helpers/getAPICall");
 
 let updatedParams;
 
 exports.getHarvestById = async (req, res, next) => {
-  try {
-    const { authorization } = req.headers;
-
-    const { id } = req.params;
-
-    const authContent = authorization.split(" ");
-
-    const [licenseNumber, apiKey] = authContent;
-
-    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
-
-    const url = `${METRC_URL(req)}/harvests/v1/${id}`;
-    const queriedHarvest = await axios
-      .get(url, {
-        params,
-        headers,
-      })
-      .then((response) => response.data)
-      .catch((err) => returnMETRCErr(err, res));
-
-    if (Object.keys(queriedHarvest).includes("FinishedDate")) {
-      return res.status(200).send({
-        message: "Retrieved Queried Harvest",
-        queriedHarvest,
-      });
-    }
-    return null;
-  } catch (err) {
-    return next(err);
-  }
+  const { id } = req.params;
+  const url = `${METRC_URL(req)}/harvests/v1/${id}`;
+  return getAPICall(req, res, next, url);
 };
 
 exports.getActiveHarvests = async (req, res, next) => {
   try {
-    const { lastModifiedStart, lastModifiedEnd } = req.query;
-
-    const { authorization } = req.headers;
-
-    const authContent = authorization.split(" ");
-
-    const [licenseNumber, apiKey] = authContent;
-
-    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
-    if (lastModifiedEnd !== "" && lastModifiedStart !== "") {
-      updatedParams = {
-        ...params,
-
-        lastModifiedStart,
-        lastModifiedEnd,
-      };
-    } else {
-      updatedParams = {
-        ...params,
-      };
-    }
-
     const url = `${METRC_URL(req)}/harvests/v1/active`;
-    const activeHarvests = await axios
-      .get(url, {
-        params: updatedParams,
-        headers,
-      })
-      .then((response) => response.data)
-      .catch((err) => returnMETRCErr(err, res));
-
-    if (Array.isArray(activeHarvests)) {
-      return res.status(200).send({
-        message: "Retrieved Active Harvests",
-        activeHarvests,
-      });
-    }
-    return null;
+    return getAPICall(req, res, next, url);
   } catch (err) {
     return next(err);
   }
@@ -86,48 +24,8 @@ exports.getActiveHarvests = async (req, res, next) => {
 
 exports.getInactiveHarvests = async (req, res, next) => {
   try {
-    const { lastModifiedStart, lastModifiedEnd } = req.query;
-
-    const { authorization } = req.headers;
-
-    const authContent = authorization.split(" ");
-
-    const [licenseNumber, apiKey] = authContent;
-
-    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
-    if (lastModifiedEnd !== "" && lastModifiedStart !== "") {
-      updatedParams = {
-        ...params,
-        lastModifiedStart,
-        lastModifiedEnd,
-      };
-    } else {
-      updatedParams = {
-        ...params,
-      };
-    }
     const url = `${METRC_URL(req)}/harvests/v1/inactive`;
-    const inactiveHarvests = await axios
-      .get(url, {
-        params: updatedParams,
-        headers,
-      })
-      .then((response) => response.data)
-      .catch((err) =>
-        res
-          .status(err.response.status)
-          .send({ message: err.response.data[0].message })
-      );
-
-    if (inactiveHarvests === undefined) {
-      return res.status(400).send({
-        message: "Unable to get inactive harvests",
-      });
-    }
-    return res.status(200).send({
-      message: "Retrieved inactive harvests",
-      inactiveHarvests,
-    });
+    return getAPICall(req, res, next, url);
   } catch (err) {
     return next(err);
   }
@@ -135,48 +33,8 @@ exports.getInactiveHarvests = async (req, res, next) => {
 
 exports.getOnHoldHarvests = async (req, res, next) => {
   try {
-    const { lastModifiedStart, lastModifiedEnd } = req.query;
-
-    const { authorization } = req.headers;
-
-    const authContent = authorization.split(" ");
-
-    const [licenseNumber, apiKey] = authContent;
-
-    const { headers, params } = await encodeAuthKey(licenseNumber, apiKey);
-    if (lastModifiedEnd !== "" && lastModifiedStart !== "") {
-      updatedParams = {
-        ...params,
-        lastModifiedStart,
-        lastModifiedEnd,
-      };
-    } else {
-      updatedParams = {
-        ...params,
-      };
-    }
     const url = `${METRC_URL(req)}/harvests/v1/onhold`;
-    const onHoldHarvests = await axios
-      .get(url, {
-        params: updatedParams,
-        headers,
-      })
-      .then((response) => response.data)
-      .catch((err) =>
-        res
-          .status(err.response.status)
-          .send({ message: err.response.data[0].message })
-      );
-
-    if (onHoldHarvests === undefined) {
-      return res.status(400).send({
-        message: "Unable to get onhold harvests",
-      });
-    }
-    return res.status(200).send({
-      message: "Retrieved onhold harvests",
-      onHoldHarvests,
-    });
+    return getAPICall(req, res, next, url);
   } catch (err) {
     return next(err);
   }

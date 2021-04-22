@@ -1,7 +1,7 @@
 
 ***INSERT GRAPHIC HERE (include hyperlink in image)***
 
-# METRC Sync API (Oregon)
+# METRC Sync API
 
 > API for Grolens to sync data to METRC (Oregon)
 
@@ -24,7 +24,7 @@
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/GroLensInc/metrc-sync-api-oregon`
+- Clone this repo to your local machine using `https://github.com/GroLensInc/metrc-sync-api`
 
 ### Setup
 

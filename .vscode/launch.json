@@ -10,6 +10,9 @@
             "name": "nodemon",
             "program": "${workspaceFolder}/server/server.js",
             "request": "launch",
+            "runtimeArgs": [
+                "--require=dotenv/config"
+            ],
             "restart": true,
             "runtimeExecutable": "nodemon",
             "skipFiles": [
