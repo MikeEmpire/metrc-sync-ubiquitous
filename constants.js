@@ -30,15 +30,20 @@ const DEV_VENDOR_API_DICT = {
   california: "3F16j6eJ5q4aqdGGDEjIfqoZymDzRzshGFJ7QCiP-ofOhaoC",
   oklahoma: "Pt36rQnuKsKhQyrpDrPJ2vmYQFUXH3RRGC2M6C-VKwoVy89Y",
   oregon: "-EKz8Mu8FZK2OOrMMHkC10rrs5aufypU5rYdFCxpndtZ7A9S",
+  michgian: "OfVdhqmU0-qnQdSotBZJQ5vyAojJp2x8TxlKuHI-ut7yggtS",
 };
 
-const DEV_VENDOR_USER_DICT = {
-  california: "FusVbe4Yv6W1DGNuxKNhByXU6RO6jSUPcbRCoRDD98VNXc4D",
+const PROD_VENDOR_API_DICT = {
+  michigan: "Rb55UCvsW4PmA2Nyt0oj9MKFds2UgnG7rQNlJM2SFBpLYxJj",
+  california: "WMadPAHcLDBXj7TtFP6AMBvQnP9FDSL9IYmGKiJpbl7p4foP",
+  oregon: "",
+  oklahoma: "FCkxW1L2ImRpS-b-ZBXF9WeXr0LTn7FbrwS7boCx0MG64WD9",
 };
 
 // const DEV_USER_API_DICT = {
 //   oklahoma: "O6-GVAUBnJxzgQo7ptJeRgSJ26OHAClx4f5g6WAVLiGOKsnh",
 //   oregon: "4ABk0xpkhATaOhFgB81dses94sRCBA2jqV5xrAwX9fpUPZO6",
+//   california: "FusVbe4Yv6W1DGNuxKNhByXU6RO6jSUPcbRCoRDD98VNXc4D",
 // };
 
 const METRC_URL = (req) => {
@@ -48,12 +53,13 @@ const METRC_URL = (req) => {
   }
   const lowercaseState = state.toLowerCase();
   const shortenedState = STATE_ABBREVIATIONS[lowercaseState];
+  let url = "";
   if (process.env.NODE_ENV === "development") {
-    const sandboxUrl = `https://sandbox-api-${shortenedState}.metrc.com`;
-    return sandboxUrl;
+    url = `https://sandbox-api-${shortenedState}.metrc.com`;
+  } else {
+    url = `https://api-${shortenedState}.metrc.com`;
   }
-  const envKey = `${state.toUpperCase()}_METRC_URL`;
-  return process.env[envKey];
+  return url;
 };
 
 const VENDOR_API_KEY = (state) => {
@@ -61,11 +67,13 @@ const VENDOR_API_KEY = (state) => {
     return V_API_KEY;
   }
   const lowercaseState = state.toLowerCase();
+  let vendorKey;
   if (process.env.NODE_ENV === "development") {
-    const sandboxUrl = DEV_VENDOR_API_DICT[lowercaseState];
-    return sandboxUrl;
+    vendorKey = DEV_VENDOR_API_DICT[lowercaseState];
+  } else {
+    vendorKey = PROD_VENDOR_API_DICT[lowercaseState];
   }
-  return process.env.METRC_URL;
+  return vendorKey;
 };
 
 module.exports = {
