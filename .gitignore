@@ -85,3 +85,5 @@ db/scripts/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+.dockerignore
