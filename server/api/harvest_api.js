@@ -1,5 +1,6 @@
 const { METRC_URL } = require("../../constants");
 const getAPICall = require("../../helpers/getAPICall");
+const postAPICall = require("../../helpers/postAPICall");
 
 exports.getHarvestById = async (req, res, next) => {
   const { id } = req.params;

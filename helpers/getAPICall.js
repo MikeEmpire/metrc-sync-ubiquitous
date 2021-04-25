@@ -17,7 +17,7 @@ const getAPICall = async (req, res, next, url) => {
       apiKey,
       state
     );
-    if (lastModifiedEnd !== "" && lastModifiedStart !== "") {
+    if (lastModifiedEnd && lastModifiedStart) {
       updatedParams = {
         ...params,
         lastModifiedStart,

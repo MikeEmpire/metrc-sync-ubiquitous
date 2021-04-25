@@ -4,8 +4,9 @@ require("dotenv").config();
 //* ****// Dependencies
 /** *********************************** */
 
-const app = require("./app");
 const logger = require("morgan");
+
+const app = require("./app");
 
 /** *********************************** */
 //* ****// Middleware initialization

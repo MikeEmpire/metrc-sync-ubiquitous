@@ -32,25 +32,6 @@ module.exports = (app) => {
   // serve the grolens favicon
   app.use(favicon(path.join(__dirname, "images", "favicon.ico")));
 
-  // -- routes for docs and generated swagger spec --
-  app.get("/api-docs", (req, res) => {
-    res.render("redoc", { docUrl: `${process.env.DOC_URL}/docs/swagger.json` });
-  });
-
-  app.get("/docs", (req, res) => {
-    res.render("customer-docs");
-  });
-
-  app.get("/docs/swagger.json", (req, res) => {
-    res.setHeader("Content-Type", "application/json");
-    res.send(swaggerSpec);
-  });
-
-  // Define request response in root URL (/)
-  app.get("/", (req, res) =>
-    res.send("Welcome to Grolens METRC-Michigan API!")
-  );
-
   // -- setup up swagger-jsdoc --
   const swaggerDefinition = {
     info: {
