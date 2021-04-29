@@ -1,6 +1,5 @@
 const swaggerJSDoc = require("swagger-jsdoc");
 const favicon = require("serve-favicon");
-const url = require("url");
 const path = require("path");
 
 const rooms = require("./routes/rooms");
@@ -51,11 +50,7 @@ module.exports = (app) => {
 
   // -- routes for docs and generated swagger spec --
   app.get("/api-docs", (req, res) => {
-    const titleUrl = url.format({
-      protocol: req.protocol,
-      host: req.get("host"),
-    });
-    res.render("redoc", { docUrl: `${titleUrl}/docs/swagger.json` });
+    res.render("redoc", { docUrl: `${process.env.DOC_URL}/docs/swagger.json` });
   });
 
   app.get("/docs", (req, res) => {
