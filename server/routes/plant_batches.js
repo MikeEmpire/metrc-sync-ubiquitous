@@ -475,6 +475,8 @@ router.put("/growthphase", plant_batches_api.changeGrowthPhase);
  */
 router.put("/deletebatch", plant_batches_api.deletePlantBatch);
 
+router.post("/split", plant_batches_api.splitPlantBatch);
+
 router.get("/:id", plant_batches_api.getBatchByLabel);
 
 module.exports = router;

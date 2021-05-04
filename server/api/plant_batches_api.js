@@ -67,6 +67,15 @@ exports.deletePlantBatch = async (req, res, next) => {
   }
 };
 
+exports.splitPlantBatch = async (req, res, next) => {
+  try {
+    const url = `${METRC_URL(req)}/plantbatches/v1/split`;
+    return postAPICall(req, res, next, url);
+  } catch (err) {
+    return next(err);
+  }
+};
+
 exports.createPackage = async (req, res, next) => {
   try {
     const url = `${METRC_URL(req)}/plantbatches/v1/createpackages`;
