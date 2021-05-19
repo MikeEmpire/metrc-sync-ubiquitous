@@ -653,7 +653,7 @@ router.post("/manicure", plants_api.recordManicure);
  *         description: Incorrect API Key Or METRC User Key
  *
  */
-router.delete("/destroy", plants_api.destroyPlants);
+router.post("/destroy", plants_api.destroyPlants);
 
 router.post("/move", plants_api.movePlants);
 
