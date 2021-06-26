@@ -84,3 +84,12 @@ exports.createPackage = async (req, res, next) => {
     return next(err);
   }
 };
+
+exports.createFromMotherPlant = async (req, res, next) => {
+  try {
+    const url = `${METRC_URL(req)}/plantbatches/v1/create/packages/frommotherplant`;
+    return postAPICall(req, res, next, url);
+  } catch (err) {
+    return next(err);
+  }
+};

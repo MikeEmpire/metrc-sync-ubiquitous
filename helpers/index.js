@@ -1,7 +1,11 @@
 const returnMETRCErr = async (err, res, req) => {
+  if (!err.response) {
+    return res
+      .status(500)
+      .send({ message: "Something unexpected went wrong " });
+  }
   const { data, status } = err.response;
-  res.locals.error = true
-  console.log(err.response);
+  res.locals.error = true;
   // console.log(data, status)
 
   if (status === 401) {
@@ -21,6 +25,7 @@ const returnMETRCErr = async (err, res, req) => {
     });
   }
   if (data) {
+    console.log(err)
     if (Array.isArray(data)) {
       let message = "Error Message from METRC: ";
       // console.log(message)

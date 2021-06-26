@@ -477,6 +477,8 @@ router.put("/deletebatch", plant_batches_api.deletePlantBatch);
 
 router.post("/split", plant_batches_api.splitPlantBatch);
 
+router.post("/clone", plant_batches_api.createFromMotherPlant);
+
 router.get("/:id", plant_batches_api.getBatchByLabel);
 
 module.exports = router;

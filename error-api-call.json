@@ -1,0 +1,17 @@
+{
+  "Headers": "Basic UHQzNnJRbnVLc0toUXlycERyUEoydm1ZUUZVWEgzUlJHQzJNNkMtVkt3b1Z5ODlZOk82LUdWQVVCbkp4emdRbzdwdEplUmdTSjI2T0hBQ2x4NGY1ZzZXQVZMaUdPS3NuaA==",
+  "Data": [
+    {
+      "Name": "2292-12",
+      "Count": 1,
+      "StartingTag": "ABCDEF012345670000023762",
+      "GrowthPhase": "Vegetative",
+      "NewLocation": "Adilas Dry Room 1",
+      "GrowthDate": "2021-06-26",
+      "PatientLicenseNumber": null
+    }
+  ],
+  "params": { "licenseNumber": "4b-X0002" },
+  "State": "Oklahoma",
+  "URL": "https://sandbox-api-ok.metrc.com/plantbatches/v1/changegrowthphase"
+}
