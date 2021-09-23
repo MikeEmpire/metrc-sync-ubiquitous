@@ -79,3 +79,19 @@ exports.unfinishHarvest = async (req, res, next) => {
     return next(err);
   }
 };
+
+exports.moveHarvest = async (req, res, next) => {
+  try {
+    const url = `${METRC_URL(req)}/harvests/v1/move`;
+    return postAPICall(
+      req,
+      res,
+      next,
+      url,
+      "Successfully moved harvest!",
+      "put"
+    );
+  } catch (err) {
+    return next(err);
+  }
+};

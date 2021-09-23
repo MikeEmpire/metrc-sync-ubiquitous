@@ -425,4 +425,6 @@ router.post('/finish', harvest_api.finishHarvest);
 
 router.post('/unfinish', harvest_api.unfinishHarvest)
 
+router.post('/move', harvest_api.moveHarvest)
+
 module.exports = router;
