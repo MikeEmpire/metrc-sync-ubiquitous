@@ -1,13 +1,14 @@
 const axios = require("axios");
 
 const { returnMETRCErr } = require(".");
-const { encodeAuthKey } = require("./encodeAuthKey");
+const getHeadersAndParams = require("./getHeadersAndParams");
 
 const postAPICall = async (req, res, next, url, message, method, noReqBody) => {
   try {
-    const { state } = await req.query;
-    // Add plant group to METRC so data can be accurately logged
-    const { authorization } = await req.headers;
+    let responseMessage = "Success!";
+    if (message) {
+      responseMessage = message;
+    }
 
     let methodToUse = await method;
 
@@ -15,39 +16,28 @@ const postAPICall = async (req, res, next, url, message, method, noReqBody) => {
       methodToUse = "post";
     }
 
-    const authContent = await authorization.split(" ");
-    let responseMessage = await "Success!";
-    const [licenseNumber, apiKey] = await authContent;
-    if (message) {
-      responseMessage = message;
-    }
-
-    const { headers, params } = await encodeAuthKey(
-      licenseNumber,
-      apiKey,
-      state
-    );
+    const { headers, params } = await getHeadersAndParams(req);
 
     const data = await req.body;
     let dataRes = {};
     if (noReqBody) {
-      response = await axios[methodToUse](url, { params, headers })
-        .then((response) => response.data)
+      dataRes = await axios[methodToUse](url, { params, headers })
+        .then((asyncRes) => asyncRes.data)
         .catch((err) => returnMETRCErr(err, res, req));
     } else {
-      response = await axios[methodToUse](url, data, {
+      dataRes = await axios[methodToUse](url, data, {
         params,
         headers,
       })
-        .then((response) => response.data)
+        .then((asyncRes) => asyncRes.data)
         .catch((err) => returnMETRCErr(err, res, req));
     }
 
-    const { error } = res.locals
+    const { error } = res.locals;
 
     if (typeof dataRes === "object") {
       if (error) {
-        return null
+        return null;
       }
       const success = {
         responseMessage,

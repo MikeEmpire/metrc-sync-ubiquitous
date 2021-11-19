@@ -1,22 +1,13 @@
 const axios = require("axios");
 const { returnMETRCErr } = require(".");
-const { encodeAuthKey } = require("./encodeAuthKey");
+const getHeadersAndParams = require("./getHeadersAndParams");
 
 const getAPICall = async (req, res, next, url) => {
   try {
-    const { lastModifiedStart, lastModifiedEnd, state } = req.query;
+    const { lastModifiedStart, lastModifiedEnd } = req.query;
+    const { headers, params } = await getHeadersAndParams(req);
+    let updatedParams = params;
 
-    const { authorization } = req.headers;
-
-    const authContent = authorization.split(" ");
-
-    const [licenseNumber, apiKey] = authContent;
-
-    const { headers, params } = await encodeAuthKey(
-      licenseNumber,
-      apiKey,
-      state
-    );
     if (lastModifiedEnd && lastModifiedStart) {
       updatedParams = {
         ...params,

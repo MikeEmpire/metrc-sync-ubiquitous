@@ -659,6 +659,10 @@ router.post("/move", plants_api.movePlants);
 
 router.get("/wastemethods", plants_api.getWasteMethods);
 
-router.get('/wastereasons', plants_api.getWasteReasons)
+router.get("/wastereasons", plants_api.getWasteReasons);
+
+router.get("/label/:label", plants_api.getPlantByLabel);
+
+router.post("/labels", plants_api.getPlantsByLabels)
 
 module.exports = router;
